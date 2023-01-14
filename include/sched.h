@@ -1,7 +1,8 @@
-#ifndef _SCHED_H
-#define _SCHED_H
+#pragma once
 
 #define CPU_CONTEXT_OFFSET  0 
+#define TASK_RUNNING_STATE  0
+#define THREAD_SIZE         4096
 
 #ifndef __ASSEMBLER__
 
@@ -35,6 +36,7 @@ void sched_preempt_enable(void);
 void sched_schedule(void);
 void sched_timer_tick(void);
 void sched_switch_to(struct task_struct *next);
+long sched_get_current_priority(void);
+int sched_add_fork(struct task_struct *p);
 
-#endif
 #endif

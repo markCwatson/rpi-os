@@ -1,0 +1,12 @@
+{
+    "C_Cpp.default.includePath": [
+        "include",
+        "include/arm"
+    ],
+    "files.associations": {
+        "mm.h": "c",
+        "base.h": "c",
+        "irq.h": "c",
+        "utils.h": "c"
+    }
+}

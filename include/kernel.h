@@ -1,7 +1,5 @@
-#ifndef	_KERNEL_H
-#define	_KERNEL_H
+#pragma once
 
-#define PERIPHERAL_BASE 0xFE000000
 #define CLOCKHZ 1000000
 
 enum vc_irqs {
@@ -11,5 +9,3 @@ enum vc_irqs {
     SYS_TIMER_IRQ_3 = 8,
     AUX_IRQ = (1 << 29)
 };
-
-#endif

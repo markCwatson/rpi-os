@@ -22,7 +22,7 @@
 #define ERROR_INVALID_EL0_32	15 
 
 .macro handle_invalid_entry type
-    save_stack_frame
+    kernel_entry
     mov	x0, #\type
     mrs	x1, esr_el1
     mrs	x2, elr_el1
@@ -34,7 +34,7 @@
     b	\label
 .endm
 
-.macro	save_stack_frame
+.macro	kernel_entry
     sub	sp, sp, #S_FRAME_SIZE
     stp	x0, x1, [sp, #16 * 0]
     stp	x2, x3, [sp, #16 * 1]
@@ -54,7 +54,7 @@
     str	x30, [sp, #16 * 15] 
 .endm
 
-.macro	restore_stack_frame
+.macro	kernel_exit
     ldp	x0, x1, [sp, #16 * 0]
     ldp	x2, x3, [sp, #16 * 1]
     ldp	x4, x5, [sp, #16 * 2]
@@ -148,9 +148,9 @@ error_invalid_el0_32:
     handle_invalid_entry  ERROR_INVALID_EL0_32
 
 el1_irq:
-    save_stack_frame 
+    kernel_entry 
     bl	irq_handler
-    restore_stack_frame 
+    kernel_exit 
 
 .globl err_hang
 err_hang:
@@ -171,3 +171,4 @@ irq_enable:
 irq_disable:
     msr	daifset, #2     // Mask I-bit (for IRQs)
     ret
+    
