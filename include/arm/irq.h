@@ -18,7 +18,9 @@
 #define SYSTEM_TIMER_IRQ_2  (1 << 2)
 #define SYSTEM_TIMER_IRQ_3  (1 << 3)
 
-struct arm_irq_regs_2711 {
+#define IRQ_OFFSET          0x0000B200
+
+struct arm_irq_regs {
     volatile unsigned int irq0_pending_0;
     volatile unsigned int irq0_pending_1;
     volatile unsigned int irq0_pending_2;
@@ -32,5 +34,4 @@ struct arm_irq_regs_2711 {
     volatile unsigned int irq0_disable_2;
 };
 
-#define IRQ_OFFSET  0x0000B200
-#define REGS_IRQ    ((struct arm_irq_regs_2711 *)(PBASE + IRQ_OFFSET))
+struct arm_irq_regs *const irq = (struct arm_irq_regs *)(PBASE + IRQ_OFFSET);
