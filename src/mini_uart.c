@@ -3,39 +3,41 @@
 #include "arm/auxiliary.h"
 #include "mini_uart.h"
 
-#define TXD 14
-#define RXD 15
+#define AUX_UART_TXD            14
+#define AUX_UART_RXD            15
+#define AUX_UART_CLOCK          500000000 // Hz
+#define AUX_UART_BAUD(baud)     ((AUX_UART_CLOCK / (baud * 8)) - 1)
 
-void uart_init(void) {
-    gpio_pin_set_func(TXD, GFAlt5);
-    gpio_pin_set_func(RXD, GFAlt5);
+int uart_init(void) {
+    int ret;
 
-    gpio_pin_enable(TXD);
-    gpio_pin_enable(RXD);
+    ret = gpio_pin_set_resistor(AUX_UART_TXD, GPIO_RESISTOR_NONE);
+    ret += gpio_pin_set_function(AUX_UART_TXD, GPIO_ALT_FUNC_5);
+    ret += gpio_pin_set_resistor(AUX_UART_RXD, GPIO_RESISTOR_NONE);
+    ret += gpio_pin_set_function(AUX_UART_RXD, GPIO_ALT_FUNC_5);
+    if (ret < 0)
+        return ret;
 
-    REGS_AUX->enables = 1;
-    REGS_AUX->mu_control = 0;
-    REGS_AUX->mu_ier = 0;
-    REGS_AUX->mu_lcr = 3;
-    REGS_AUX->mu_mcr = 0;
-    REGS_AUX->mu_baud_rate = 541; // = 115200 @ 500 Mhz
-    REGS_AUX->mu_control = 3;
-
-    uart_send('\r');
-    uart_send('\n');
-    uart_send('\n');
+    aux->enables = 1;
+    aux->mu_control = 0;
+    aux->mu_ier = 0;
+    aux->mu_lcr = 3;
+    aux->mu_mcr = 0;
+    aux->mu_baud_rate = AUX_UART_BAUD(115200);
+    aux->mu_control = 3;
+    return 0;
 }
 
 void uart_send(char c) {
-    while(!(REGS_AUX->mu_lsr & 0x20));
+    while(!(aux->mu_lsr & 0x20));
 
-    REGS_AUX->mu_io = c;
+    aux->mu_io = c;
 }
 
 char uart_recv(void) {
-    while(!(REGS_AUX->mu_lsr & 1));
+    while(!(aux->mu_lsr & 1));
 
-    return REGS_AUX->mu_io & 0xFF;
+    return aux->mu_io & 0xFF;
 }
 
 void uart_send_string(char *str) {

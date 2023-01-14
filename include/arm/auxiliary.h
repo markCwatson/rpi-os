@@ -2,6 +2,8 @@
 
 #include "arm/base.h"
 
+#define AUX_OFFSET  0x00215000
+
 struct AuxRegs {
     volatile unsigned int irq_status;
     volatile unsigned int enables;
@@ -19,5 +21,4 @@ struct AuxRegs {
     volatile unsigned int mu_baud_rate;
 };
 
-#define AUX_OFFSET  0x00215000
-#define REGS_AUX    ((struct AuxRegs *)(PBASE + AUX_OFFSET))
+struct AuxRegs *const aux = (struct AuxRegs *)(PBASE + AUX_OFFSET);

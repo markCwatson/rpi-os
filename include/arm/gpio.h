@@ -2,27 +2,41 @@
 
 #include "arm/base.h"
 
-struct GpioPinData {
+#define GPIO_NUM            58
+#define GPIO_NUM_BANKS      3
+#define GPIO_OFFSET         0x00200000
+
+struct GpioData {
     volatile unsigned int reserved;
-    volatile unsigned int data[2];
+    volatile unsigned int val[2];
 };
 
 struct GpioRegs {
-    volatile unsigned int func_select[6];
-    struct GpioPinData output_set;
-    struct GpioPinData output_clear;
-    struct GpioPinData level;
-    struct GpioPinData ev_detect_status;
-    struct GpioPinData re_detect_enable;
-    struct GpioPinData fe_detect_enable;
-    struct GpioPinData hi_detect_enable;
-    struct GpioPinData lo_detect_enable;
-    struct GpioPinData async_re_detect;
-    struct GpioPinData async_fe_detect;
+    /* GPIO Function Select */
+    volatile unsigned int gpfsel[6];
+    /* GPIO Pin Output Set */
+    struct GpioData gpset;
+    /* GPIO Pin Output Clear */
+    struct GpioData gpclr;
+    /* GPIO Pin Level */
+    struct GpioData gplev;
+    /* GPIO Pin Event Detect Status */
+    struct GpioData gpeds;
+    /* GPIO Pin Rising Edge Detect Enable */
+    struct GpioData gpren;
+    /* GPIO Pin Falling Edge Detect Enable */
+    struct GpioData gpfen;
+    /* GPIO Pin High Detect Enable */
+    struct GpioData gphen;
+    /* GPIO Pin Low Detect Enable */
+    struct GpioData gplen;
+    /* GPIO Pin Async. Rising Edge Detect */
+    struct GpioData gparen;
+    /* GPIO Pin Async. Falling Edge Detect */
+    struct GpioData gpafen;
+    /* GPIO Pull-up / Pull-down Registers */
     volatile unsigned int reserved;
-    volatile unsigned int pupd_enable;
-    volatile unsigned int pupd_enable_clocks[2];
+    volatile unsigned int gpio_pup_pdn_cntrl_reg[4];
 };
 
-#define GPIO_OFFSET     0x00200000
-#define REGS_GPIO       ((struct GpioRegs *)(PBASE + GPIO_OFFSET))
+struct GpioRegs *const gpio = (struct GpioRegs *)(PBASE + GPIO_OFFSET);

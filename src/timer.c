@@ -7,17 +7,17 @@ static unsigned int intervals[4] = { 0 };
 
 void timer_init(unsigned int id, unsigned int interval) {
     intervals[id] = interval;
-    REGS_TIMER->compare[id] = REGS_TIMER->counter_lo + interval;
+    timer->compare[id] = timer->counter_lo + interval;
 }
 
 void timer_cancel(unsigned int id) {
     intervals[id] = 0;
-    REGS_TIMER->compare[id] = 0;
+    timer->compare[id] = 0;
 }
 
 void timer_irq_handler(unsigned int type) {
     if (type == 1U) {
-        REGS_TIMER->control_status |= SYS_TIMER_IRQ_1;
-        REGS_TIMER->compare[1U] = REGS_TIMER->counter_lo + intervals[1U];
+        timer->control_status |= SYS_TIMER_IRQ_1;
+        timer->compare[1U] = timer->counter_lo + intervals[1U];
     }
 }

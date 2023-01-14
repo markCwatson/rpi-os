@@ -7,6 +7,9 @@
         "mm.h": "c",
         "base.h": "c",
         "irq.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "auxiliary.h": "c",
+        "mini_uart.h": "c",
+        "gpio.h": "c"
     }
 }
