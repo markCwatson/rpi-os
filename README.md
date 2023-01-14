@@ -85,6 +85,8 @@ The following resources were used to various capacities:
 
 9. I always recommend [Miro Samek's][Miro] embeded systems programming course.
 
+10. [ARM compiler C/C++ types][ARM Types]
+
 [ARM Tool]: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 [UCD]: https://packages.ubuntu.com/bionic/devel/gcc-aarch64-linux-gnu
 [Sergey]: https://github.com/s-matyukevich/raspberry-pi-os
@@ -97,3 +99,4 @@ The following resources were used to various capacities:
 [BCM2711]: https://datasheets.raspberrypi.com/bcm2711/bcm2711-peripherals.pdf
 [Learn OS]: https://www.youtube.com/@writeyourownoperatingsystem
 [Miro]: https://www.state-machine.com/video-course
+[ARM Types]: https://developer.arm.com/documentation/dui0472/k/C-and-C---Implementation-Details/Basic-data-types-in-ARM-C-and-C--

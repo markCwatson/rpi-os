@@ -1,9 +1,7 @@
 #include "sched.h"
 #include "irq.h"
 		
-#define THREAD_SIZE         4096
 #define NR_TASKS            64 
-#define TASK_RUNNING        0
 
 #define FIRST_TASK task[0]
 #define LAST_TASK task[NR_TASKS - 1]
@@ -39,7 +37,7 @@ static void schedule(void) {
         for (int i = 0; i < NR_TASKS; i++) {
             p = task[i];
 
-            if (p && (p->state == TASK_RUNNING) && (p->counter > max_counter)) {
+            if (p && (p->state == TASK_RUNNING_STATE) && (p->counter > max_counter)) {
                 max_counter = p->counter;
                 next = i;
             }
@@ -103,4 +101,16 @@ void sched_timer_tick(void) {
     irq_enable();
     schedule();
     irq_disable();
+}
+
+long sched_get_current_priority(void) {
+    return current->priority;
+}
+
+int sched_add_fork(struct task_struct *p) {
+    if (nr_tasks++ >= NR_TASKS)
+        return -1;
+
+    task[nr_tasks] = p;
+    return 0;
 }
