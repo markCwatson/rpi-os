@@ -1,5 +1,7 @@
 #pragma once
 
-void timer_init(unsigned int id, unsigned int interval);
-void timer_cancel(unsigned int id);
-void timer_irq_handler(unsigned int type);
+#include <stdint.h>
+
+int8_t timer_init(uint32_t id, uint32_t interval);
+void timer_cancel(uint32_t id);
+void timer_irq_handler(uint32_t type);

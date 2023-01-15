@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 typedef enum {
     /* GPIO Pin is an input */
     GPIO_FUNC_INPUT = 0,
@@ -29,5 +31,5 @@ typedef enum {
     GPIO_RESISTOR_MAX
 } GpioResistor;
 
-int gpio_pin_set_function(unsigned int pin_num, GpioFunc func);
-int gpio_pin_set_resistor(unsigned int pin_num, GpioResistor res);
+int8_t gpio_pin_set_function(uint8_t pin_num, GpioFunc func);
+int8_t gpio_pin_set_resistor(uint8_t pin_num, GpioResistor res);

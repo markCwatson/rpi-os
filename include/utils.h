@@ -1,4 +1,5 @@
 #pragma once
 
-// unsigned long long is 64 bits
-void delay(unsigned long long ticks);
+#include <stdint.h>
+
+void delay(uint64_t ticks);

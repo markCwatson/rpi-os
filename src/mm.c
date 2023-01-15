@@ -1,20 +1,19 @@
 #include "mm.h"
 
-// ARM GNU defines unsigned short as 16 bits
-static unsigned short mem_map[PAGING_PAGES] = {0,};
+static uint16_t mem_map[PAGING_PAGES] = {0,};
 
-// ARM GNU defines unsigned long as 32 bits
-unsigned long mm_get_free_page(void) {
-    for (int i = 0; i < PAGING_PAGES; i++){
+void* mm_get_free_page(void) {
+    for (uint64_t i = 0; i < PAGING_PAGES; i++){
         if (mem_map[i] == 0){
             mem_map[i] = 1;
-            return LOW_MEMORY + i * PAGE_SIZE;
+            return (void *)(LOW_MEMORY + (i * PAGE_SIZE));
         }
     }
 
     return 0;
 }
 
-void mm_free_page(unsigned long p) {
-    mem_map[(p - LOW_MEMORY) / PAGE_SIZE] = 0;
+void mm_free_page(void *p) {
+    uint64_t page_num = (((uint64_t)p) - LOW_MEMORY) / PAGE_SIZE; 
+    mem_map[page_num] = 0;
 }

@@ -6,7 +6,7 @@ ASMFILES = $(wildcard $(SRCDIR)/*.S)
 OFILES = $(CFILES:$(SRCDIR)/%.c=$(BUILDDIR)/%_c.o)
 OFILES += $(ASMFILES:$(SRCDIR)/%.S=$(BUILDDIR)/%_s.o)
 
-GNUFLAGS = -mcpu=cortex-a72 -Iinclude -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles -mgeneral-regs-only
+GNUFLAGS = -mcpu=cortex-a72 -Iinclude -Wall -O2 -ffreestanding -nostdlib -nostartfiles -mgeneral-regs-only
 GNUTOOL ?= aarch64-none-elf
 
 all: kernel8.img

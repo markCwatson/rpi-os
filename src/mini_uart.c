@@ -8,8 +8,8 @@
 #define AUX_UART_CLOCK          500000000 // Hz
 #define AUX_UART_BAUD(baud)     ((AUX_UART_CLOCK / (baud * 8)) - 1)
 
-int uart_init(void) {
-    int ret;
+int8_t uart_init(void) {
+    int8_t ret;
 
     ret = gpio_pin_set_resistor(AUX_UART_TXD, GPIO_RESISTOR_NONE);
     ret += gpio_pin_set_function(AUX_UART_TXD, GPIO_ALT_FUNC_5);
@@ -28,19 +28,17 @@ int uart_init(void) {
     return 0;
 }
 
-void uart_send(char c) {
+void uart_send(const char c) {
     while(!(aux->mu_lsr & 0x20));
-
     aux->mu_io = c;
 }
 
 char uart_recv(void) {
     while(!(aux->mu_lsr & 1));
-
     return aux->mu_io & 0xFF;
 }
 
-void uart_send_string(char *str) {
+void uart_send_string(const char *str) {
     while(*str) {
         if (*str == '\n') {
             uart_send('\r');

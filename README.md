@@ -73,7 +73,7 @@ The following resources were used to various capacities:
 
 3. Tutorial by [Adam Greenwood-Byrne][Adam]. Adam extends Sergey's work to the Raspberry Pi 4.
 
-4. [OSDev.org][OSDev] has a lot of content related to OS development including a section on writing a bare-metal OS for the Rasbperry Pi.
+4. [OSDev.org][OSDev] has a lot of content related to OS development including a section on [writing a bare-metal OS for the Rasbperry Pi][OSDev-pi].
 
 5. [ARM's offical documentation][ARM Doc].
 
@@ -83,9 +83,11 @@ The following resources were used to various capacities:
 
 8. The [Write your own Operating System][Learn OS] YouTube channel.
 
-9. I always recommend [Miro Samek's][Miro] embeded systems programming course.
+9. I always recommend [Miro Samek's][Miro] embeded systems programming course to anyone interested in embedded development.
 
-10. [ARM compiler C/C++ types][ARM Types]
+10. [Andre Leiradella][Andre] describes RPi stubs and the ARM boot protocol.
+
+11. ANother RPi3 bare-metal OS tutorial by [Zoltan Baldaszti][Zoltan].
 
 [ARM Tool]: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 [UCD]: https://packages.ubuntu.com/bionic/devel/gcc-aarch64-linux-gnu
@@ -99,4 +101,6 @@ The following resources were used to various capacities:
 [BCM2711]: https://datasheets.raspberrypi.com/bcm2711/bcm2711-peripherals.pdf
 [Learn OS]: https://www.youtube.com/@writeyourownoperatingsystem
 [Miro]: https://www.state-machine.com/video-course
-[ARM Types]: https://developer.arm.com/documentation/dui0472/k/C-and-C---Implementation-Details/Basic-data-types-in-ARM-C-and-C--
+[Andre]: https://leiradel.github.io/2019/01/20/Raspberry-Pi-Stubs.html
+[Zoltan]: https://github.com/bztsrc/raspi3-tutorial
+[OSDev-pi]: https://wiki.osdev.org/Raspberry_Pi_Bare_Bones

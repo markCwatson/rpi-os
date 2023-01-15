@@ -2,7 +2,7 @@
 #include "arm/gpio.h"
 #include "utils.h"
 
-int gpio_pin_set_function(unsigned int pin_num, GpioFunc func) {
+int8_t gpio_pin_set_function(uint8_t pin_num, GpioFunc func) {
     if (pin_num >= GPIO_NUM)
         return -1;
 
@@ -10,11 +10,11 @@ int gpio_pin_set_function(unsigned int pin_num, GpioFunc func) {
         return -2;
 
     /* Limit start bit to values 0, 3, 6, ..., 27*/
-    unsigned int start_bit = (pin_num * 3) % 30;
+    uint8_t start_bit = (pin_num * 3) % 30;
     /* Limit index to 0 to 5*/
-    unsigned int index = pin_num / 10;
+    uint8_t index = pin_num / 10;
 
-    volatile unsigned int selector = gpio->gpfsel[index];
+    volatile uint8_t selector = gpio->gpfsel[index];
     /* Clear the three function bits */
     selector &= ~(7 << start_bit);
     /* Set the three function bits per caller */
@@ -23,7 +23,7 @@ int gpio_pin_set_function(unsigned int pin_num, GpioFunc func) {
     return 0;
 }
 
-int gpio_pin_set_resistor(unsigned int pin_num, GpioResistor res) {
+int8_t gpio_pin_set_resistor(uint8_t pin_num, GpioResistor res) {
     if (pin_num >= GPIO_NUM)
         return -1;
 
@@ -31,11 +31,11 @@ int gpio_pin_set_resistor(unsigned int pin_num, GpioResistor res) {
         return -2;
 
     /* Limit start bit to values 0, 2, 4, ..., 30*/
-    unsigned int start_bit = (pin_num * 2) % 32;
+    uint8_t start_bit = (pin_num * 2) % 32;
     /* Limit index to 0 to 3*/
-    unsigned int index = pin_num / 16;
+    uint8_t index = pin_num / 16;
 
-    volatile unsigned int selector = gpio->gpio_pup_pdn_cntrl_reg[index];
+    volatile uint8_t selector = gpio->gpio_pup_pdn_cntrl_reg[index];
     /* Clear the 2 function bits */
     selector &= ~(3 << start_bit);
     /* Set the 2 function bits per caller */

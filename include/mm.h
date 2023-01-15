@@ -16,7 +16,8 @@
 #define PAGING_PAGES    (PAGING_MEMORY/PAGE_SIZE)
 
 #ifndef __ASSEMBLER__
-unsigned long mm_get_free_page(void);
-void mm_free_page(unsigned long p);
-void mm_zero(unsigned long src, unsigned long length);
+#include <stdint.h>
+void* mm_get_free_page(void);
+void mm_free_page(void *p);
+void mm_zero(uint32_t src, uint32_t length);
 #endif

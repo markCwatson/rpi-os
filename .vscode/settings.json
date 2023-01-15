@@ -10,6 +10,7 @@
         "utils.h": "c",
         "auxiliary.h": "c",
         "mini_uart.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "stdint.h": "c"
     }
 }

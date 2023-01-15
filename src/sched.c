@@ -14,7 +14,7 @@
 static struct task_struct init_task = INIT_TASK;
 struct task_struct *current = &init_task;
 struct task_struct *task[NR_TASKS] = {&init_task, };
-int nr_tasks = 1;
+uint8_t nr_tasks = 1;
 
 /*
  * Defined in sched.S to be able to access registers.
@@ -26,7 +26,8 @@ extern void cpu_switch_to(struct task_struct *prev, struct task_struct *next);
  */
 static void schedule(void) {
     sched_preempt_disable();
-    int next, max_counter;
+    uint8_t next;
+    int32_t max_counter;
     struct task_struct *p;
 
     while (1) {
@@ -34,7 +35,7 @@ static void schedule(void) {
         next = 0;
 
         // Find the task in TASK_RUNNING state with the max non-zero counter
-        for (int i = 0; i < NR_TASKS; i++) {
+        for (uint8_t i = 0; i < NR_TASKS; i++) {
             p = task[i];
 
             if (p && (p->state == TASK_RUNNING_STATE) && (p->counter > max_counter)) {
@@ -50,7 +51,7 @@ static void schedule(void) {
         // If no such task exists: a) no task is in TASK_RUNNING (all waiting for interrupts), or
         //                         b) all counters are zero.
         // Then increment their counters...
-        for (int i = 0; i < NR_TASKS; i++) {
+        for (uint8_t i = 0; i < NR_TASKS; i++) {
             p = task[i];
 
             if (p)
@@ -103,11 +104,11 @@ void sched_timer_tick(void) {
     irq_disable();
 }
 
-long sched_get_current_priority(void) {
+int32_t sched_get_current_priority(void) {
     return current->priority;
 }
 
-int sched_add_fork(struct task_struct *p) {
+int8_t sched_add_fork(struct task_struct *p) {
     if (nr_tasks++ >= NR_TASKS)
         return -1;
 

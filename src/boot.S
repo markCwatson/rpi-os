@@ -5,12 +5,14 @@
 .section ".text.boot"
 
 // Execution begins at the start function
-// _start ensures only core0 runs
+// Execution to _start transferred from armstub8.s which set up the environment.
+// armstub8.s can be found in github.com/raspberrypi/tools/tree/master/armstubs
 .global _start
+    .org 0x80000
 _start:
     mrs  x1, mpidr_el1       // Move Multiprocessor Affinity (system) Register into x1 
     and  x1, x1, #3 
-    cbz  x1, setup_el1       // Check processor ID is zero, else hang
+    cbz  x1, setup_el1       // Check processor ID is zero, else hang (only core0 runs)
 hang:  
     wfe                      // Wait for event
     b    hang
@@ -32,10 +34,10 @@ setup_el1:
 main_core:  
     adr x0, __bss_start
     adr x1, __bss_size
-    bl mm_zero         
+    bl  mm_zero         
 
 go_to_main:  
     mov	sp, #LOW_MEMORY
-    bl   kernel_main         // Call kernel_main in kernel.c
-    b    hang
+    bl  kernel_main         // Call kernel_main in kernel.c
+    b   hang
     

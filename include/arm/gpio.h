@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "arm/base.h"
 
 #define GPIO_NUM            58
@@ -7,13 +8,13 @@
 #define GPIO_OFFSET         0x00200000
 
 struct GpioData {
-    volatile unsigned int reserved;
-    volatile unsigned int val[2];
+    volatile uint32_t reserved;
+    volatile uint32_t val[2];
 };
 
 struct GpioRegs {
     /* GPIO Function Select */
-    volatile unsigned int gpfsel[6];
+    volatile uint32_t gpfsel[6];
     /* GPIO Pin Output Set */
     struct GpioData gpset;
     /* GPIO Pin Output Clear */
@@ -35,8 +36,8 @@ struct GpioRegs {
     /* GPIO Pin Async. Falling Edge Detect */
     struct GpioData gpafen;
     /* GPIO Pull-up / Pull-down Registers */
-    volatile unsigned int reserved;
-    volatile unsigned int gpio_pup_pdn_cntrl_reg[4];
+    volatile uint32_t reserved;
+    volatile uint32_t gpio_pup_pdn_cntrl_reg[4];
 };
 
 struct GpioRegs *const gpio = (struct GpioRegs *)(PBASE + GPIO_OFFSET);

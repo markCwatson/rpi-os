@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "arm/base.h"
 
 #define IRQ_BASIC_PENDING   (PBASE + 0x0000B200)
@@ -21,17 +22,17 @@
 #define IRQ_OFFSET          0x0000B200
 
 struct arm_irq_regs {
-    volatile unsigned int irq0_pending_0;
-    volatile unsigned int irq0_pending_1;
-    volatile unsigned int irq0_pending_2;
-    volatile unsigned int res0;
-    volatile unsigned int irq0_enable_0;
-    volatile unsigned int irq0_enable_1;
-    volatile unsigned int irq0_enable_2;
-    volatile unsigned int res1;
-    volatile unsigned int irq0_disable_0;
-    volatile unsigned int irq0_disable_1;
-    volatile unsigned int irq0_disable_2;
+    volatile uint32_t irq0_pending_0;
+    volatile uint32_t irq0_pending_1;
+    volatile uint32_t irq0_pending_2;
+    volatile uint32_t res0;
+    volatile uint32_t irq0_enable_0;
+    volatile uint32_t irq0_enable_1;
+    volatile uint32_t irq0_enable_2;
+    volatile uint32_t res1;
+    volatile uint32_t irq0_disable_0;
+    volatile uint32_t irq0_disable_1;
+    volatile uint32_t irq0_disable_2;
 };
 
 struct arm_irq_regs *const irq = (struct arm_irq_regs *)(PBASE + IRQ_OFFSET);

@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "irq.h"
 #include "arm/irq.h"
 #include "timer.h"
@@ -16,7 +17,7 @@ void irq_disable_controller(void) {
 }
 
 void irq_handler(void) {
-    unsigned int irq_pending = irq->irq0_pending_0;
+    uint32_t irq_pending = irq->irq0_pending_0;
 
     while (irq_pending) {
         if (irq_pending & SYS_TIMER_IRQ_1) {
